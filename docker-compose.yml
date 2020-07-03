@@ -1,0 +1,46 @@
+version: '3.0'
+services:
+  mainnet:
+    image: bitcoind:0.20.0
+    build: .
+    restart: always
+    ports:
+      - "8332:8332"
+      - "8333:8333"
+    volumes:
+      - "./config:/config"
+      - "./chaindata:/chaindata"
+    command:
+      - "bitcoind"
+      - "--datadir=/chaindata"
+      - "--conf=/config/bitcoin.conf"
+  testnet:
+    image: bitcoind:0.20.0
+    build: .
+    restart: always
+    ports:
+      - "18332:18332"
+      - "18333:18333"
+    volumes:
+      - "./config:/config"
+      - "./chaindata:/chaindata"
+    command:
+      - "bitcoind"
+      - "--datadir=/chaindata"
+      - "--conf=/config/bitcoin.conf"
+      - "--testnet"
+  privnet:
+    image: bitcoind:0.20.0
+    build: .
+    restart: always
+    ports:
+      - "18443:18443"
+      - "18444:18444"
+    volumes:
+      - "./config:/config"
+      - "./chaindata:/bitcoin"
+    command:
+      - "bitcoind"
+      - "--datadir=/chaindata"
+      - "--conf=/config/privnet.conf"
+      - "--regtest"
