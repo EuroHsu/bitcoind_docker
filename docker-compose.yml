@@ -1,9 +1,11 @@
 version: '3.0'
 services:
   mainnet:
-    image: bitcoind:0.20.0
+    image: bitcoind:22.0
     build: .
     restart: always
+    stop_signal: SIGINT
+    stop_grace_period: 5s
     ports:
       - "8332:8332"
       - "8333:8333"
@@ -15,7 +17,7 @@ services:
       - "--datadir=/chaindata"
       - "--conf=/config/bitcoin.conf"
   testnet:
-    image: bitcoind:0.20.0
+    image: bitcoind:22.0
     build: .
     restart: always
     ports:
@@ -30,7 +32,7 @@ services:
       - "--conf=/config/bitcoin.conf"
       - "--testnet"
   privnet:
-    image: bitcoind:0.20.0
+    image: bitcoind:22.0
     build: .
     restart: always
     ports:
